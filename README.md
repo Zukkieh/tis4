@@ -12,3 +12,9 @@ Logo após rodar o comando acima, rode o seguinte comando na pasta aplication pa
 ```
 yarn react-native run-android
 ```
+
+Para rodar o servidor em ambiente de desenvolvimento rode o seguinte comnaod na pasta backend:
+
+```
+yarn dev
+```
