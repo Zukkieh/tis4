@@ -33,8 +33,7 @@ export default function Login({ navigation }) {
 
     async function goToTepe() {
         const response = await api.post('/testaPermissao', { id: id , fonema: "R" })
-        console.log(response.data)
-        if (response.data)
+        if (response.data[0])
             navigation.navigate('Games', { id , perfil });
     }
 
