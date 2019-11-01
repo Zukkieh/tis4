@@ -31,7 +31,6 @@ export default function Login({ navigation }) {
     useEffect(() => {
          async function loadNome() {
             const response = await api.post('/findFono', { id: id })
-            console.log(response.data);
             setNome(response.data.nomeFono);
         }
         console.log(id);

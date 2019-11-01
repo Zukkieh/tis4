@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import {YellowBox} from 'react-native';
+YellowBox.ignoreWarnings(['Warning: State']);
 import {
     KeyboardAvoidingView,
     View,
@@ -23,23 +25,21 @@ import back from '../assets/retroceder.png';
 
 
 export default function Fonema({ navigation }) {
-    const [fonema, setFonema] = useState('R');
     const id = navigation.getParam('id');
     const idPac = navigation.getParam('idPac');
     const perfil = navigation.getParam('perfil');
-
+    const [fonema, setFonema] = useState('R');
     useEffect(() => {
-
     });
 
     async function givePermission() {
         const response = await api.post('/registerPermissao', { idPaciente: idPac, fonema: fonema })
         if (response)
-            navigation.navigate('listaPaciente', { id , perfil});
+            navigation.navigate('listaPaciente', { id, perfil });
     }
 
     function goBack() {
-        navigation.navigate('ManagePac', { id, idPac , perfil});
+        navigation.navigate('ManagePac', { id, idPac, perfil });
     }
 
     return (
@@ -55,15 +55,14 @@ export default function Fonema({ navigation }) {
                 style={styles.container}
             >
                 <View style={styles.containerPassowd}>
-                <TextInput
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    placeholder="Digite o Fonema"
-                    placeholderTextColor="#999"
-                    style={styles.input}
-                    value={fonema}
-                    onChangeText={setFonema}
-                />
+                    <Picker
+                        selectedValue={fonema}
+                        style={{ height: 50, width: 100 }}
+                        onValueChange={setFonema}
+                        >
+                        <Picker.Item label="R" value="R" />
+                        <Picker.Item label="B" value="B" />
+                    </Picker>
                 </View>
 
                 <TouchableOpacity onPress={givePermission} style={styles.button}>

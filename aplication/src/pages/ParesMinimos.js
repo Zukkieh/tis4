@@ -28,7 +28,7 @@ export default function ParesMinimos({ navigation }) {
     const [choseSoundTwo, setChoseSoundTwo] = useState('');
 
     function goBack() {
-        navigation.navigate('Fonemas', { id , perfil });
+        navigation.navigate('Games', { id , perfil });
     }
 
     useEffect(() => {

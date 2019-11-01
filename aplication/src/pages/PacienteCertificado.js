@@ -32,7 +32,8 @@ export default function listaPacientes({ navigation }) {
         async function loadPacientes() {
             const response = await api.post('/listCertificado', { crfa: id })
             console.log(response.data);
-            setPacientes(response.data);
+            if(response.data[0])
+              setPacientes(response.data);
         }
         console.log(id);
         loadPacientes();
