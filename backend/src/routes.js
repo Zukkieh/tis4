@@ -26,6 +26,8 @@ const testaPermissao = require('./services/testaPermissao');
 
 const listCertificado = require('./services/listCertificado');
 
+const getProgressoJogo = require('./services/getProgressoJogo');
+
 
 const routes = express.Router();
 
@@ -46,6 +48,7 @@ routes.post('/listProgresso', listProgresso.list);
 routes.post('/updateProgresso', updateProgresso.update);
 routes.post('/testaPermissao', testaPermissao.login);
 routes.post('/listCertificado', listCertificado.list);
+routes.post('/getProgressoJogo', getProgressoJogo.get);
 
 
 module.exports = routes;
