@@ -32,8 +32,8 @@ export default function listaPacientes({ navigation }) {
     useEffect(() => {
         async function loadPacientes() {
             const response = await api.post('/listProgresso', { id: idPac })
-            console.log(response.data);
-            setPacientes(response.data);
+            if(response.data[0])
+                setPacientes(response.data);
         }
         console.log(id);
         loadPacientes();
