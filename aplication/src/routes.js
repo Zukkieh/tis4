@@ -20,6 +20,8 @@ import SeeProgress from './pages/SeeProgress';
 import EditPermissao from './pages/editPermissao';
 import PacienteCertificado from './pages/PacienteCertificado';
 import ParesMinimos from './pages/ParesMinimos';
+import Certificado from './pages/certificado';
+import listaCertificadoPaciente from './pages/listaPacienteCertificado'
 
 export default createAppContainer(
     createSwitchNavigator({
@@ -42,6 +44,8 @@ export default createAppContainer(
         EditPermissao,
         SeeProgress,
         PacienteCertificado,
-        ParesMinimos
+        ParesMinimos,
+        Certificado,
+        listaCertificadoPaciente
     })
 );

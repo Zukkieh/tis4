@@ -38,7 +38,7 @@ export default function Login({ navigation }) {
     }, []);
 
     function certificados() {
-        navigation.navigate('PacienteCertificado' , { id, perfil});
+        navigation.navigate('listaCertificadoPaciente' , { id, perfil});
     }
 
     function CadastrarPaciente() {
