@@ -40,12 +40,16 @@ export default function Games({ navigation }) {
                 <Image source={back} style={styles.imgBack} />
             </TouchableOpacity>
             <ImageBackground source={background} style={styles.container}>
+                <View />
+                <View />
                 <TouchableOpacity onPress={bombardeioAuditivo} style={styles.games}>
                     <Image source={jogo1} style={styles.imgGames}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={ParesMinimos} style={styles.games}>
                     <Image source={jogo2} style={styles.imgGames}/>
                 </TouchableOpacity>
+                <View />
+                <View />
             </ImageBackground>
         </>
     );
@@ -55,8 +59,9 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
 
     },
 
