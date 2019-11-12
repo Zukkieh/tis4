@@ -21,6 +21,8 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 import api from '../services/api';
 import back from '../assets/retroceder.png';
+import mais from '../assets/mais.png';
+
 
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 
@@ -33,26 +35,30 @@ export default function listaPacientes({ navigation }) {
         async function loadPacientes() {
             const response = await api.post('/listPacientes', { id: id })
             console.log(response.data);
-            if(response.data[0])
+            if (response.data[0])
                 setPacientes(response.data);
         }
         console.log(id);
         loadPacientes();
     }, []);
 
-    function goBack(){
+    function goBack() {
         const user = id;
-        navigation.navigate('MainFono', { user , perfil});
+        navigation.navigate('MainFono', { user, perfil });
     }
 
-    function manage(identificador){
+    function manage(identificador) {
         const idPac = identificador;
-        navigation.navigate('ManagePac', { id, idPac , perfil});
+        navigation.navigate('ManagePac', { id, idPac, perfil });
     }
 
+
+    function CadastrarPaciente() {
+        navigation.navigate('RegisterPaciente', { id, perfil });
+    }
     return (
         <>
-                    <StatusBar hidden={true} />
+            <StatusBar hidden={true} />
 
             <TouchableOpacity onPress={goBack} style={styles.back}>
                 <Image source={back} style={styles.imgBack} />
@@ -62,16 +68,21 @@ export default function listaPacientes({ navigation }) {
                     data={pacientes}
                     keyExtractor={post => String(post.idPaciente)}
                     renderItem={({ item }) => (
-                        <View style={styles.card}>
-                            <Text onPress={() => manage(item.idPaciente)} style={styles.name}>
-                                {item.nomePaciente}
-                            </Text>
-                        </View>
-
+                        <TouchableOpacity onPress={() => manage(item.idPaciente)}>
+                            <View style={styles.card} >
+                                <Text style={styles.name}>
+                                    {item.nomePaciente}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
                     )}
                 >
                 </FlatList>
+
             </View>
+            <TouchableOpacity onPress={CadastrarPaciente} style={styles.backgroundColor}>
+                <Image source={mais} style={styles.imgPlus} />
+            </TouchableOpacity>
         </>
     );
 
@@ -106,7 +117,7 @@ const styles = StyleSheet.create({
     },
 
     name: {
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#333'
     },
@@ -142,13 +153,26 @@ const styles = StyleSheet.create({
     },
 
     back: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#f5f5f5',
         width: 40,
     },
 
     imgBack: {
         height: 40,
-        width:40,
+        width: 40,
+    },
+
+    imgPlus: {
+        height: 40,
+        width: 40,
+        marginLeft: 582,
+        marginBottom: 18,
+
+    },
+
+    backgroundColor: {
+        backgroundColor: '#f5f5f5',
     }
+
 });
 

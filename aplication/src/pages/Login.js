@@ -75,7 +75,7 @@ export default function Login({ navigation }) {
             <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
-                placeholder="Digite seu usuário"
+                placeholder="Digite seu usuário ou CRFA"
                 placeholderTextColor="#999"
                 style={styles.input}
                 value={user}
@@ -120,7 +120,7 @@ export default function Login({ navigation }) {
             }
 
             <TouchableOpacity onPress={handleLogin} style={styles.button}>
-                <Text style={styles.buttonText}>Enviar</Text>
+                <Text style={styles.buttonText}>Entrar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleWantRegister}>

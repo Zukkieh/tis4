@@ -52,9 +52,13 @@ export default function ParesMinimos({ navigation }) {
                 if(progresso.data.code === 204){
                     setChoseSoundOne('s0_1');
                     setChoseSoundTwo('s0_2');
+                    setChoseImageOne('I0_1');
+                    setChoseImageTwo('I0_2');
                 }else{
                     setChoseSoundOne(`s${progresso.data}_1`);
                     setChoseSoundTwo(`s${progresso.data}_2`);
+                    setChoseImageOne(`I${progresso.data}_1`);
+                    setChoseImageTwo(`I${progresso.data}_2`);
                 }
             }else{
                 await setEnd(true)
@@ -75,10 +79,14 @@ export default function ParesMinimos({ navigation }) {
         if(progresso.data.code === 204){
             setChoseSoundOne(`s25_1`);
             setChoseSoundTwo(`s25_2`);
+            setChoseImageOne(`I25_1`)
+            setChoseImageTwo(`I25_2`)
         }else{
             if(progresso.data >= 25){
                 setChoseSoundOne(`s${progresso.data+25}_1`);
                 setChoseSoundTwo(`s${progresso.data+25}_2`);
+                setChoseImageOne(`I${progresso.data+25}_1`)
+                setChoseImageTwo(`I${progresso.data+25}_2`)
             }
         }
 
