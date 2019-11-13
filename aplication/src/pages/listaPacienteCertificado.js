@@ -47,7 +47,7 @@ export default function listaPacientes({ navigation }) {
 
     function manage(identificador, nomeP, nomeF){
         const idPac = identificador;
-        navigation.navigate('Certificado', { id,  nomeP, nomeF});
+        navigation.navigate('Certificado', { id, perfil , nomeP, nomeF});
     }   
 
     return (
@@ -62,12 +62,13 @@ export default function listaPacientes({ navigation }) {
                     data={pacientes}
                     keyExtractor={post => String(post.idPaciente)}
                     renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => manage(item.idPaciente, item.nomePaciente, item.nomeFono)}>
                         <View style={styles.card}>
-                            <Text onPress={() => manage(item.idPaciente, item.nomePaciente, item.nomeFono)} style={styles.name}>
+                            <Text style={styles.name}>
                                 {item.nomePaciente}
                             </Text>
                         </View>
-
+                        </TouchableOpacity>
                     )}
                 >
                 </FlatList>
@@ -142,8 +143,7 @@ const styles = StyleSheet.create({
     },
 
     back: {
-        backgroundColor: '#ffffff',
-        width: 40,
+        backgroundColor: '#f5f5f5',
     },
 
     imgBack: {

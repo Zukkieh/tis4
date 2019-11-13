@@ -52,8 +52,7 @@ const styles = StyleSheet.create({
     },
 
     back: {
-        backgroundColor: '#ffffff',
-        width: 40,
+        backgroundColor: '#f5f5f5',
     },
 
     imgBack: {
@@ -62,8 +61,8 @@ const styles = StyleSheet.create({
     },
     mediaPlayer: {
         position: 'absolute',
-        top: 0,
-        left: 200,
+        top: 60,
+        left: 220,
         bottom: 15,
         right: 0,
     },

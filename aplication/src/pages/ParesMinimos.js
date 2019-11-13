@@ -222,8 +222,7 @@ const styles = StyleSheet.create({
     },
 
     back: {
-        backgroundColor: '#ffffff',
-        width: 40,
+        backgroundColor: '#f5f5f5',
     },
 
     ImgGame: {

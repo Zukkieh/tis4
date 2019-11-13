@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     },
 
     back: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#f5f5f5',
     },
 
     imgBack: {

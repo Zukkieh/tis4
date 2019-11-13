@@ -5,7 +5,7 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,6 +14,8 @@ import {
   Text,
   StatusBar,
   TextInput,
+  TouchableOpacity,
+  Image,
   ImageBackground,
 } from 'react-native';
 
@@ -26,29 +28,43 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { blue, black, underline, bold } from 'ansi-colors';
 
+import back from '../assets/retroceder.png';
 import background from '../assets/background.png';
 
 const diaDoMes = diaMes => diaMes >= 10 ? diaMes : `0${diaMes}`
 const mes = mes => mes + 1
 
-export default function Certificado({navigation}) {
+export default function Certificado({ navigation }) {
 
   const id = navigation.getParam('id')
+  const perfil = navigation.getParam('perfil')
   const nomePaciente = navigation.getParam('nomeP')
   const nomeFono = navigation.getParam('nomeF')
   const data = new Date()
 
+  function goBack() {
+    const user = id;
+    navigation.navigate('MainFono', { user, perfil });
+  }
+
   return (
-    <ImageBackground source={background} style={styles.image}>
-      <View style={styles.App}>
-        <Text h1 style={styles.certTitulo}>CERTIFICADO</Text>
-        <Text style={styles.certTexto}>Certificamos que {nomePaciente} adquiriu fluência do /r/ com bom desempenho em todas as atividades.</Text>
-        <Text style={styles.certFonoResp}>{nomeFono}</Text>
-        <Text style={styles.certAssinatura}>(asssinatura do(a) Fonoaudiólogo(a) responsável)</Text>
-        <Text style={styles.certData}>{diaDoMes(data.getDate())}/{mes(data.getMonth())}/{data.getFullYear()}</Text>
-        <Text style={styles.certTextoData}>(data)</Text>
-      </View>
-    </ImageBackground>
+    <>
+                <StatusBar hidden={true} />
+
+      <TouchableOpacity onPress={goBack} style={styles.back}>
+        <Image source={back} style={styles.imgBack} />
+      </TouchableOpacity>
+      <ImageBackground source={background} style={styles.image}>
+        <View style={styles.App}>
+          <Text h1 style={styles.certTitulo}>CERTIFICADO</Text>
+          <Text style={styles.certTexto}>Certificamos que {nomePaciente} adquiriu fluência do /r/ com bom desempenho em todas as atividades.</Text>
+          <Text style={styles.certFonoResp}>{nomeFono}</Text>
+          <Text style={styles.certAssinatura}>(asssinatura do(a) Fonoaudiólogo(a) responsável)</Text>
+          <Text style={styles.certData}>{diaDoMes(data.getDate())}/{mes(data.getMonth())}/{data.getFullYear()}</Text>
+          <Text style={styles.certTextoData}>(data)</Text>
+        </View>
+      </ImageBackground>
+    </>
   );
 };
 
@@ -74,14 +90,14 @@ const styles = StyleSheet.create({
     fontFamily: "sans-serif",
     marginBottom: 20
   },
-  
+
   certTexto: {
     textAlign: "center",
     fontFamily: "sans-serif",
     fontSize: 22,
     marginBottom: 20
   },
-  
+
   certFonoResp: {
     textAlign: "center",
     textDecorationLine: "underline",
@@ -89,14 +105,14 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginBottom: 0
   },
-  
+
   certAssinatura: {
     textAlign: "center",
     marginTop: 2,
     fontSize: 11,
     marginBottom: 10
   },
-  
+
   certData: {
     textAlign: "center",
     fontSize: 22,
@@ -104,12 +120,19 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     marginBottom: 0
   },
-  
+
   certTextoData: {
     textAlign: "center",
     marginTop: 2,
     fontSize: 11
-  }
+  },
+
+  imgBack: {
+    height: 20,
+    width: 20,
+}
+
+
 });
 
 // export default Certificado;

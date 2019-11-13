@@ -154,7 +154,6 @@ const styles = StyleSheet.create({
 
     back: {
         backgroundColor: '#f5f5f5',
-        width: 40,
     },
 
     imgBack: {

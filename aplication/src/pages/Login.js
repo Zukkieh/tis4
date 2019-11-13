@@ -56,7 +56,7 @@ export default function Login({ navigation }) {
             }
         } else {
             setValidate(false);
-            setErroMsg('Preencha todos os campos');
+            setErroMsg('Você tem certeza que preencheu corretamente?');
         }
     }
 
@@ -124,7 +124,7 @@ export default function Login({ navigation }) {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleWantRegister}>
-                <Text style={styles.linkRegister}>Quero me registrar</Text>
+                <Text style={styles.linkRegister}>Sou fonoaudiólogo e quero me registrar</Text>
             </TouchableOpacity>
 
         </KeyboardAvoidingView>
