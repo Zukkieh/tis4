@@ -17,6 +17,7 @@ import {
     removeOrientationListener as rol
 } from 'react-native-responsive-screen';
 
+import api from '../services/api';
 import background from '../assets/background.png';
 import back from '../assets/retroceder.png';
 
@@ -24,6 +25,44 @@ import back from '../assets/retroceder.png';
 export default function GerenciaPaciente({ navigation }) {
     const id = navigation.getParam('id');
     const perfil = navigation.getParam('perfil');
+    const [evolucao, setevolucao] = useState("");
+    const [hidden, sethidden] = useState(true);
+    const [hidden2, sethidden2] = useState(true);
+    const [hidden3, sethidden3] = useState(true);
+    const [incompleto, setincompleto] = useState(true);
+
+
+    useEffect(() => {
+        async function loadPacientes() {
+            const response = await api.post('/getProgressoJogo', { id: id, jogo: "Bombardeio Auditivo"})
+            console.log(response.data);
+            if (response.data[0]){
+                setevolucao(response.data.evolucao);
+                if(response.data.nivel == 2){
+                    sethidden(false);
+                    sethidden2(false);
+                    sethidden3(false);
+                }
+                else if(evolucao = 25){
+                    sethidden(false);
+                }
+                else if(evolucao = 50){
+                    sethidden(false);
+                    sethidden2(false);
+                }
+                else if(evolucao = 75){
+                    sethidden(false);
+                    sethidden2(false);
+                    sethidden3(false);
+                }
+                else if(evolucao = 100){
+                    setincompleto(false);
+                }
+            }
+        }
+        loadPacientes();
+    }, []);
+
 
     function fase1() {
         navigation.navigate('bombAudit_1' , {id , perfil})
@@ -54,19 +93,20 @@ export default function GerenciaPaciente({ navigation }) {
             </TouchableOpacity>
             <ImageBackground source={background} style={styles.image}>
                 <View style={styles.container}>
-                    <TouchableOpacity onPress={fase1} style={styles.button}>
+                    <TouchableOpacity onPress={fase1} style={styles.button} hide={!this.state.incompleto}>
                         <Text style={styles.buttonText}>Etapa 1</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={fase2}>
+                    <TouchableOpacity style={styles.button} onPress={fase2} hide={this.state.hidden}>
                         <Text style={styles.buttonText}>Etapa 2</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={fase3} style={styles.button}>
+                    <TouchableOpacity onPress={fase3} style={styles.button} hide={this.state.hidden2}>
                         <Text style={styles.buttonText}>Etapa 3</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={fase4}>
+                    <TouchableOpacity style={styles.button} onPress={fase4} hide={this.state.hidden3}>
                         <Text style={styles.buttonText}>Etapa 4</Text>
                     </TouchableOpacity>
                 </View>
+                <Text hide={this.state.incompleto}> Você já completou este jogo, parabéns</Text>
             </ImageBackground>
         </>
     );

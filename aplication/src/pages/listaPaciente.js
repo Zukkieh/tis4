@@ -18,7 +18,6 @@ import {
     removeOrientationListener as rol
 } from 'react-native-responsive-screen';
 
-import CheckBox from '@react-native-community/checkbox';
 import api from '../services/api';
 import back from '../assets/retroceder.png';
 import mais from '../assets/mais.png';

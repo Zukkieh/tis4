@@ -55,10 +55,10 @@ export default function ParesMinimos({ navigation }) {
                     setChoseImageOne('I0_1');
                     setChoseImageTwo('I0_2');
                 }else{
-                    setChoseSoundOne(`s${progresso.data}_1`);
-                    setChoseSoundTwo(`s${progresso.data}_2`);
-                    setChoseImageOne(`I${progresso.data}_1`);
-                    setChoseImageTwo(`I${progresso.data}_2`);
+                    setChoseSoundOne(`s${progresso.data.evolucao}_1`);
+                    setChoseSoundTwo(`s${progresso.data.evolucao}_2`);
+                    setChoseImageOne(`I${progresso.data.evolucao}_1`);
+                    setChoseImageTwo(`I${progresso.data.evolucao}_2`);
                 }
             }else{
                 await setEnd(true)
@@ -83,10 +83,10 @@ export default function ParesMinimos({ navigation }) {
             setChoseImageTwo(`I25_2`)
         }else{
             if(progresso.data >= 25){
-                setChoseSoundOne(`s${progresso.data+25}_1`);
-                setChoseSoundTwo(`s${progresso.data+25}_2`);
-                setChoseImageOne(`I${progresso.data+25}_1`)
-                setChoseImageTwo(`I${progresso.data+25}_2`)
+                setChoseSoundOne(`s${progresso.data.evolucao+25}_1`);
+                setChoseSoundTwo(`s${progresso.data.evolucao+25}_2`);
+                setChoseImageOne(`I${progresso.data.evolucao+25}_1`)
+                setChoseImageTwo(`I${progresso.data.evolucao+25}_2`)
             }
         }
 
@@ -94,7 +94,7 @@ export default function ParesMinimos({ navigation }) {
             if(progresso.data.code === 204)
                 response = await api.post('/registerProgresso', { idPaciente: id, jogo: "Pares Minimos", porcentagem: 25 })
             else
-                response = await api.post('/updateProgresso', { idPaciente: id, jogo: "Pares Minimos", progresso: (progresso.data + 25) })
+                response = await api.post('/updateProgresso', { idPaciente: id, jogo: "Pares Minimos", progresso: (progresso.data.evolucao + 25) })
         }else
             setEnd(true)
     }

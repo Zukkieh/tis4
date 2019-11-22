@@ -50,7 +50,7 @@ export default function GerenciaPaciente({ navigation }) {
             <ImageBackground source={background} style={styles.image}>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={editPermissao} style={styles.button}>
-                        <Text style={styles.buttonText}>EDITAR PACIENTE</Text>
+                        <Text style={styles.buttonText}>CONCEDER PERMISSÃO</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={progresso}>
                         <Text style={styles.buttonText}>ACOMPANHAR PACIENTE</Text>

@@ -5,7 +5,7 @@ module.exports = {
         var id= req.body.id;
         var jogo= req.body.jogo;
         console.log(id);
-        connection.query('SELECT progresso.evolucao FROM progresso INNER JOIN paciente ON progresso.idPaciente = paciente.idPaciente WHERE paciente.usuarioPaciente = ? AND progresso.jogo = ?',[id, jogo], function (error, results, fields) {
+        connection.query('SELECT progresso.evolucao, permissao.nivel FROM progresso INNER JOIN paciente ON progresso.idPaciente = paciente.idPaciente INNER JOIN permissao ON permissao.idPaciente = paciente.idPaciente WHERE paciente.usuarioPaciente = ? AND progresso.jogo = ? AND permissao.fonema = "R"',[id, jogo], function (error, results, fields) {
         if (error) {
         // console.log("error ocurred",error);
         res.send({
