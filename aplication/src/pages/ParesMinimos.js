@@ -48,7 +48,7 @@ export default function ParesMinimos({ navigation }) {
     useEffect(() => {
         async function getSound() {
             const progresso = await api.post('/getProgressoJogo', { id: id, jogo: "Pares Minimos"})
-            if(progresso.data < 100 || progresso.data.code === 204){
+            if(progresso.data.evolucao < 100 || progresso.data.code === 204){
                 if(progresso.data.code === 204){
                     setChoseSoundOne('s0_1');
                     setChoseSoundTwo('s0_2');
@@ -63,6 +63,7 @@ export default function ParesMinimos({ navigation }) {
             }else{
                 await setEnd(true)
             }
+            console.log(progresso.data.evolucao);
         }
         getSound();
     }, []);
@@ -82,7 +83,7 @@ export default function ParesMinimos({ navigation }) {
             setChoseImageOne(`I25_1`)
             setChoseImageTwo(`I25_2`)
         }else{
-            if(progresso.data >= 25){
+            if(progresso.data .evolucao>= 25){
                 setChoseSoundOne(`s${progresso.data.evolucao+25}_1`);
                 setChoseSoundTwo(`s${progresso.data.evolucao+25}_2`);
                 setChoseImageOne(`I${progresso.data.evolucao+25}_1`)
@@ -90,7 +91,7 @@ export default function ParesMinimos({ navigation }) {
             }
         }
 
-        if(progresso.data < 100 || progresso.data.code === 204){
+        if(progresso.data.evolucao < 100 || progresso.data.code === 204){
             if(progresso.data.code === 204)
                 response = await api.post('/registerProgresso', { idPaciente: id, jogo: "Pares Minimos", porcentagem: 25 })
             else

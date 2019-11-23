@@ -9,7 +9,8 @@ import {
     Image,
     StatusBar,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 import {
     widthPercentageToDP as wp,
@@ -40,8 +41,10 @@ export default function Login({ navigation }) {
         if (nome != '' && crfa != '' && password != '' && cpf != '' && email != '') {
             if (password == passwordConfirm) {
                 const response = await api.post('/register', { nome: nome, senha: password, crfa: crfa, cpf: cpf, email: email })
-                if (response.data == "1")
-                    navigation.navigate('Login');
+                if (response.data == "1") {
+                    Alert.alert('', 'Cadastro Realizado com sucesso!')
+                    navigation.navigate('Login')
+                }
                 if (response.data == "1062") {
                     setMessage('Usuário já existente');
                     setValidate(false);

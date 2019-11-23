@@ -8,7 +8,8 @@ import {
     StatusBar,
     Image,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 import {
     widthPercentageToDP as wp,
@@ -39,8 +40,10 @@ export default function Login({ navigation }) {
         if (password != '' && current != '' && confirm != '') {
             if (password == confirm) {
                 const response = await api.post('/updatePassword', { id: id, password: password, current: current , perfil : perfil})
-                if(response)
+                if(response) {
+                    Alert.alert('', 'Senha alterada com sucesso!')
                     navigation.navigate('Options', { id });
+                }
             } else {
                 setMessage('As senhas devem ser iguais');
                 setValidate(false);

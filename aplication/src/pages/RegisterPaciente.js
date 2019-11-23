@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { KeyboardAvoidingView, View, Platform, StatusBar, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, View, Platform, StatusBar, Text, StyleSheet, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -37,6 +37,7 @@ export default function Login({ navigation }) {
                 const idF = await findId(id);
                 const response = await api.post('/registerPaciente', { nome: nome, senha: password, user: user, telefone: telefone, responsavel: nomeResponsavel, id: idF })
                 if (response.data == "1") {
+                    Alert.alert('', 'Paciente cadastrado com sucesso!')
                     const user = id;
                     navigation.navigate('MainFono', { user });
                 }

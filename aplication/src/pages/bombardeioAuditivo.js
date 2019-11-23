@@ -26,41 +26,43 @@ export default function GerenciaPaciente({ navigation }) {
     const id = navigation.getParam('id');
     const perfil = navigation.getParam('perfil');
     const [evolucao, setevolucao] = useState("");
-    const [hidden, sethidden] = useState(true);
+    const [hidden, sethidden] = useState('true');
     const [hidden2, sethidden2] = useState(true);
     const [hidden3, sethidden3] = useState(true);
-    const [incompleto, setincompleto] = useState(true);
+    const [incompleto, setincompleto] = useState('true');
 
 
     useEffect(() => {
-        async function loadPacientes() {
-            const response = await api.post('/getProgressoJogo', { id: id, jogo: "Bombardeio Auditivo"})
-            console.log(response.data);
-            if (response.data[0]){
-                setevolucao(response.data.evolucao);
-                if(response.data.nivel == 2){
+        async function loadProgresso() {
+            const progresso = await api.post('/getProgressoJogo', { id: id, jogo: 'Bombardeio Auditivo'});
+            
+            if (!(progresso.data.code === 204) ){
+                setevolucao(progresso.data.evolucao);
+                if(progresso.data.nivel == 2){
+                    sethidden('false');
+                    sethidden2(false);
+                    sethidden3(false);
+                }
+                else if(evolucao == 25){
+                    sethidden(false);
+                }
+                else if(evolucao == 50){
+                    sethidden(false);
+                    sethidden2(false);
+                }
+                else if(evolucao == 75){
                     sethidden(false);
                     sethidden2(false);
                     sethidden3(false);
                 }
-                else if(evolucao = 25){
-                    sethidden(false);
-                }
-                else if(evolucao = 50){
-                    sethidden(false);
-                    sethidden2(false);
-                }
-                else if(evolucao = 75){
-                    sethidden(false);
-                    sethidden2(false);
-                    sethidden3(false);
-                }
-                else if(evolucao = 100){
+                else if(evolucao == 100){
                     setincompleto(false);
                 }
             }
+            console.log(progresso.data.evolucao);
+ 
         }
-        loadPacientes();
+        loadProgresso();
     }, []);
 
 
@@ -93,20 +95,20 @@ export default function GerenciaPaciente({ navigation }) {
             </TouchableOpacity>
             <ImageBackground source={background} style={styles.image}>
                 <View style={styles.container}>
-                    <TouchableOpacity onPress={fase1} style={styles.button} hide={!this.state.incompleto}>
+                    <TouchableOpacity onPress={fase1} style={styles.button} hide={!incompleto}>
                         <Text style={styles.buttonText}>Etapa 1</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={fase2} hide={this.state.hidden}>
+                    <TouchableOpacity style={styles.button} onPress={fase2} hide={hidden}>
                         <Text style={styles.buttonText}>Etapa 2</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={fase3} style={styles.button} hide={this.state.hidden2}>
+                    <TouchableOpacity onPress={fase3} style={styles.button} hide={hidden2}>
                         <Text style={styles.buttonText}>Etapa 3</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={fase4} hide={this.state.hidden3}>
+                    <TouchableOpacity style={styles.button} onPress={fase4} hide={hidden3}>
                         <Text style={styles.buttonText}>Etapa 4</Text>
                     </TouchableOpacity>
                 </View>
-                <Text hide={this.state.incompleto}> Você já completou este jogo, parabéns</Text>
+                <Text hide={incompleto}> Você já completou este jogo, parabéns</Text>
             </ImageBackground>
         </>
     );

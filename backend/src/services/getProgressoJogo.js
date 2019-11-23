@@ -15,7 +15,7 @@ module.exports = {
         }else{
         // console.log('The solution is: ', results);
         if(results.length >0){
-                return res.json(results[0].evolucao);
+                return res.json(results[0]);
         }
         else{
             res.send({

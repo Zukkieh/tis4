@@ -11,7 +11,8 @@ import {
     Image,
     Picker,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 import {
     widthPercentageToDP as wp,
@@ -34,8 +35,10 @@ export default function Fonema({ navigation }) {
 
     async function givePermission() {
         const response = await api.post('/registerPermissao', { idPaciente: idPac, fonema: fonema })
-        if (response)
+        if (response) {
+            Alert.alert('', 'Permissão concedida com sucesso!')
             navigation.navigate('listaPaciente', { id, perfil });
+        }
     }
 
     function goBack() {
