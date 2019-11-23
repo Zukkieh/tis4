@@ -1,32 +1,15 @@
-/**
- * Sample React Native App
- *
- * @format
- * @flow
- */
-
-import React, { Fragment } from 'react';
+import React, { useEffect } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
   StatusBar,
-  TextInput,
   TouchableOpacity,
   Image,
   ImageBackground,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { blue, black, underline, bold } from 'ansi-colors';
+import api from '../services/api';
 
 import back from '../assets/retroceder.png';
 import background from '../assets/background.png';
@@ -37,10 +20,18 @@ const mes = mes => mes + 1
 export default function Certificado({ navigation }) {
 
   const id = navigation.getParam('id')
+  const idPac = navigation.getParam('idPac')
   const perfil = navigation.getParam('perfil')
   const nomePaciente = navigation.getParam('nomeP')
   const nomeFono = navigation.getParam('nomeF')
   const data = new Date()
+
+  useEffect(() => {
+    async function changeLevel() {
+      await api.post('/setLevel', { id: idPac, level: "2"})
+    }
+    changeLevel();
+  }, []);
 
   function goBack() {
     const user = id;
@@ -49,7 +40,7 @@ export default function Certificado({ navigation }) {
 
   return (
     <>
-                <StatusBar hidden={true} />
+      <StatusBar hidden={true} />
 
       <TouchableOpacity onPress={goBack} style={styles.back}>
         <Image source={back} style={styles.imgBack} />

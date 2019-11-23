@@ -47,7 +47,7 @@ export default function listaPacientes({ navigation }) {
 
     function manage(identificador, nomeP, nomeF){
         const idPac = identificador;
-        navigation.navigate('Certificado', { id, perfil , nomeP, nomeF});
+        navigation.navigate('Certificado', { idPac, id, perfil , nomeP, nomeF});
     }   
 
     return (

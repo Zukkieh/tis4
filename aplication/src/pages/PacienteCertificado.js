@@ -51,7 +51,7 @@ export default function listaPacientes({ navigation }) {
 
     return (
         <>
-                    <StatusBar hidden={true} />
+            <StatusBar hidden={true} />
 
             <TouchableOpacity onPress={goBack} style={styles.back}>
                 <Image source={back} style={styles.imgBack} />

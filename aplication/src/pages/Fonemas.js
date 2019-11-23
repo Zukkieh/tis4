@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     StatusBar,
     Image,
-    Alert
+    Alert,
+    Text
 } from 'react-native';
 
 import {
@@ -45,14 +46,17 @@ export default function Login({ navigation }) {
     return (
         <>
             <StatusBar hidden={true} />
-            <TouchableOpacity onPress={goBack} style={styles.back}>
-                <Image source={back} style={styles.imgBack} />
-            </TouchableOpacity>
-            <ImageBackground source={background} style={styles.container}>
-                <View style={styles.responsiveBox}>
-                    <TouchableOpacity onPress={goToTepe}>
-                        <Image source={R} />
-                    </TouchableOpacity>
+            <ImageBackground source={background} style={styles.backgroundImg}>
+                <TouchableOpacity onPress={goBack} style={styles.imgBackButton}>
+                    <Image source={back} style={styles.imgBack} />
+                    <Text>VOLTAR</Text>
+                </TouchableOpacity>
+                <View style={styles.container}>
+                    <View style={styles.responsiveBox}>
+                        <TouchableOpacity onPress={goToTepe}>
+                            <Image source={R} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ImageBackground>
         </>
@@ -68,6 +72,10 @@ const styles = StyleSheet.create({
 
     },
 
+    backgroundImg: {
+        flex: 1,
+    },
+
     responsiveBox: {
         width: wp('43%'),
         height: hp('46%'),
@@ -77,8 +85,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    back: {
-        backgroundColor: '#f5f5f5',
+    imgBackButton: {
+        marginLeft: 5,
+        marginTop: 5,
+        height: 40,
+        width: 100,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: "black",
+        borderRadius: 7,
+        backgroundColor: '#fffe71'
     },
 
     imgBack: {

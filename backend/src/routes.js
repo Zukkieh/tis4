@@ -28,6 +28,12 @@ const listCertificado = require('./services/listCertificado');
 
 const getProgressoJogo = require('./services/getProgressoJogo');
 
+const setLevel = require('./services/setLevel');
+
+const clearGame = require('./services/clearGame');
+
+const getLevel = require('./services/getLevel');
+
 
 const routes = express.Router();
 
@@ -49,6 +55,9 @@ routes.post('/updateProgresso', updateProgresso.update);
 routes.post('/testaPermissao', testaPermissao.login);
 routes.post('/listCertificado', listCertificado.list);
 routes.post('/getProgressoJogo', getProgressoJogo.get);
+routes.post('/setLevel', setLevel.set);
+routes.post('/clearGame', clearGame.delete);
+routes.post('/getLevel', getLevel.get);
 
 
 module.exports = routes;

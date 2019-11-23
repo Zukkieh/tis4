@@ -26,7 +26,7 @@ export default function GerenciaPaciente({ navigation }) {
     const id = navigation.getParam('id');
     const perfil = navigation.getParam('perfil');
     const [evolucao, setevolucao] = useState("");
-    const [hidden, sethidden] = useState('true');
+    const [hidden, sethidden] = useState(true);
     const [hidden2, sethidden2] = useState(true);
     const [hidden3, sethidden3] = useState(true);
     const [incompleto, setincompleto] = useState('true');
@@ -37,25 +37,24 @@ export default function GerenciaPaciente({ navigation }) {
             const progresso = await api.post('/getProgressoJogo', { id: id, jogo: 'Bombardeio Auditivo'});
             
             if (!(progresso.data.code === 204) ){
-                setevolucao(progresso.data.evolucao);
                 if(progresso.data.nivel == 2){
-                    sethidden('false');
-                    sethidden2(false);
-                    sethidden3(false);
-                }
-                else if(evolucao == 25){
-                    sethidden(false);
-                }
-                else if(evolucao == 50){
-                    sethidden(false);
-                    sethidden2(false);
-                }
-                else if(evolucao == 75){
                     sethidden(false);
                     sethidden2(false);
                     sethidden3(false);
                 }
-                else if(evolucao == 100){
+                else if(progresso.data.evolucao == 25){
+                    sethidden(false);
+                }
+                else if(progresso.data.evolucao == 50){
+                    sethidden(false);
+                    sethidden2(false);
+                }
+                else if(progresso.data.evolucao == 75){
+                    sethidden(false);
+                    sethidden2(false);
+                    sethidden3(false);
+                }
+                else if(progresso.data.evolucao == 100){
                     setincompleto(false);
                 }
             }
@@ -89,27 +88,48 @@ export default function GerenciaPaciente({ navigation }) {
 
     return (
         <>
-            <StatusBar hidden={true} />
-            <TouchableOpacity onPress={goBack} style={styles.back}>
-                <Image source={back} style={styles.imgBack} />
-            </TouchableOpacity>
-            <ImageBackground source={background} style={styles.image}>
-                <View style={styles.container}>
-                    <TouchableOpacity onPress={fase1} style={styles.button} hide={!incompleto}>
-                        <Text style={styles.buttonText}>Etapa 1</Text>
+            {incompleto &&
+                <>
+                    <StatusBar hidden={true} />
+                    <TouchableOpacity onPress={goBack} style={styles.back}>
+                        <Image source={back} style={styles.imgBack} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={fase2} hide={hidden}>
-                        <Text style={styles.buttonText}>Etapa 2</Text>
+                    <ImageBackground source={background} style={styles.image}>
+                        <View style={styles.container}>
+                            {incompleto && 
+                                <TouchableOpacity onPress={fase1} style={styles.button}>
+                                    <Text style={styles.buttonText}>Etapa 1</Text>
+                                </TouchableOpacity>
+                            }
+                            {!hidden &&
+                                <TouchableOpacity style={styles.button} onPress={fase2}>
+                                    <Text style={styles.buttonText}>Etapa 2</Text>
+                                </TouchableOpacity>
+                            }
+                            {!hidden2 &&
+                                <TouchableOpacity onPress={fase3} style={styles.button}>
+                                    <Text style={styles.buttonText}>Etapa 3</Text>
+                                </TouchableOpacity>
+                            }
+                            {!hidden3 &&
+                                <TouchableOpacity style={styles.button} onPress={fase4}>
+                                    <Text style={styles.buttonText}>Etapa 4</Text>
+                                </TouchableOpacity>
+                            }
+                        </View>
+                    </ImageBackground>
+                </>
+            }
+            {!incompleto &&
+            <>
+                <ImageBackground source={background} style={styles.endContainer}>
+                    <Text style={styles.end}>PARABÉNS, VOCÊ COMPLETOU TODAS AS ETAPAS</Text>
+                    <TouchableOpacity onPress={goBack} style={styles.messageButton}>
+                        <Text style={styles.end}>Voltar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={fase3} style={styles.button} hide={hidden2}>
-                        <Text style={styles.buttonText}>Etapa 3</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={fase4} hide={hidden3}>
-                        <Text style={styles.buttonText}>Etapa 4</Text>
-                    </TouchableOpacity>
-                </View>
-                <Text hide={incompleto}> Você já completou este jogo, parabéns</Text>
-            </ImageBackground>
+                </ImageBackground>
+            </>
+            }
         </>
     );
 }
@@ -155,6 +175,32 @@ const styles = StyleSheet.create({
     imgBack: {
         height: 40,
         width: 40,
-    }
+    },
+
+    endContainer: {
+        flex: 1,
+        flexDirection: "column",
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    end: {
+        color: '#e61c1c',
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+
+    messageButton: {
+        height: 55,
+        width: 300,
+        backgroundColor: '#ffff00',
+        borderColor: "#FFD700",
+        borderStyle: "solid",
+        borderWidth: 1,
+        margin: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 5,
+    },
 
 })

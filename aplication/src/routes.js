@@ -22,6 +22,7 @@ import PacienteCertificado from './pages/PacienteCertificado';
 import ParesMinimos from './pages/ParesMinimos';
 import Certificado from './pages/certificado';
 import listaCertificadoPaciente from './pages/listaPacienteCertificado'
+import DiscriminacaoAuditiva from './pages/DiscriminacaoAuditiva'
 
 export default createAppContainer(
     createSwitchNavigator({
@@ -46,6 +47,7 @@ export default createAppContainer(
         PacienteCertificado,
         ParesMinimos,
         Certificado,
-        listaCertificadoPaciente
+        listaCertificadoPaciente,
+        DiscriminacaoAuditiva
     })
 );

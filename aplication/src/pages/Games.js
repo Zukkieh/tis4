@@ -12,6 +12,7 @@ import background from '../assets/background.png';
 import back from '../assets/retroceder.png';
 import jogo1 from "../assets/bombardeioAuditivo.png";
 import jogo2 from "../assets/ParesMínimos.png";
+import jogo3 from "../assets/DiscriminacaoAuditiva.png";
 
 export default function Games({ navigation }) {
     const id = navigation.getParam('id');
@@ -27,6 +28,10 @@ export default function Games({ navigation }) {
 
     function ParesMinimos(){
         navigation.navigate('ParesMinimos',{id , perfil});
+    }
+
+    function DiscriminacaoAuditiva(){
+        navigation.navigate('DiscriminacaoAuditiva',{id , perfil});
     }
 
     useEffect(() => {
@@ -47,6 +52,9 @@ export default function Games({ navigation }) {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={ParesMinimos} style={styles.games}>
                     <Image source={jogo2} style={styles.imgGames}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={DiscriminacaoAuditiva} style={styles.games}>
+                    <Image source={jogo3} style={styles.imgGames}/>
                 </TouchableOpacity>
                 <View />
                 <View />
@@ -75,12 +83,14 @@ const styles = StyleSheet.create({
     },
 
     imgGames: {
-        height: 70,
-        width: 70,
+        height: 80,
+        width: 90,
+        borderWidth: 1,
+        borderColor: "#FFD300",
+        borderRadius: 7
     },
 
     games:{
-        width: 70,
     }
 
 });

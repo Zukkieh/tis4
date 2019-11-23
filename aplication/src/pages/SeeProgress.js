@@ -9,6 +9,8 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
+    ProgressBarAndroid,
+    ImageBackground
 } from 'react-native';
 
 import {
@@ -20,8 +22,7 @@ import {
 
 import api from '../services/api';
 import back from '../assets/retroceder.png';
-
-import { widthPercentageToDP } from 'react-native-responsive-screen';
+import background from '../assets/background.png';
 
 export default function listaPacientes({ navigation }) {
     const id = navigation.getParam('id');
@@ -45,85 +46,109 @@ export default function listaPacientes({ navigation }) {
     return (
         <>
             <StatusBar hidden={true} />
-
-            <TouchableOpacity onPress={goBack} style={styles.back}>
-                <Image source={back} style={styles.imgBack} />
-            </TouchableOpacity>
-            <View style={styles.container}>
-                <FlatList
-                    data={pacientes}
-                    keyExtractor={post => String(post.idPaciente)}
-                    renderItem={({ item }) => (
-                        <View style={styles.card}>
-                            <Text style={styles.name}>
-                               {item.nomePaciente} completou {item.evolucao}% de {item.jogo}
-                            </Text>
+            <ImageBackground source={background} style={styles.backgroundImg}>
+                <TouchableOpacity onPress={goBack} style={styles.imgBackButton}>
+                    <Image source={back} style={styles.imgBack} />
+                    <Text>VOLTAR</Text>
+                </TouchableOpacity>
+                <View style={styles.dataView}>
+                    <Text style={styles.avaliacao}>
+                        ALVALIAÇÃO
+                    </Text>
+                    {pacientes.map((obj, index) => (
+                        <View key={index} style={styles.dataCard}>
+                            <View style={styles.gameView}>
+                                <Text style={styles.game}>
+                                    {obj.jogo}
+                                </Text>
+                            </View>
+                            <View style={styles.progress}>
+                                <ProgressBarAndroid
+                                styleAttr="Horizontal"
+                                indeterminate={false}
+                                progress={obj.evolucao/100}
+                                />
+                            </View>
+                            <View style={styles.percentView}>
+                                <Text style={styles.percent}>
+                                    {obj.evolucao}% concluído
+                                </Text>
+                            </View>
                         </View>
-
-                    )}
-                >
-                </FlatList>
-            </View>
+                    ))}
+                </View>
+            </ImageBackground>
         </>
     );
 
 }
 
 const styles = StyleSheet.create({
-    container: {
+
+    backgroundImg: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
-        alignItems: 'center',
-        justifyContent: 'space-between'
     },
 
-    cardsContainer: {
+    dataView: {
+        marginTop: 20,
+        width: 600,
         flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
         alignSelf: 'center',
         justifyContent: 'center',
-        maxHeight: 100
+        maxHeight: 300,
+        backgroundColor: 'white',
+        borderRadius: 10,
     },
 
-    card: {
-        width: wp('50%'),
-        height: hp('30%'),
-        borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 8,
-        margin: wp('0.5%'),
-        alignSelf: 'center',
+    dataCard: {
+        flex: 1,
+        flexDirection: 'row',
+        alignSelf: 'flex-start',
         justifyContent: 'center',
-        alignItems: 'center',
-
+        maxHeight: 100,
     },
 
-    name: {
+    gameView: {
+        marginLeft: 10,
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+
+    game: {
+        width: 200,
         fontSize: 16,
         fontWeight: 'bold',
         color: '#333'
     },
 
+    progress: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+
+    percentView: {
+        marginLeft: 10,
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+
+    percent: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#333'
+    },
+
+    avaliacao: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: 'black'
+    },
+
     buttonsContainer: {
         flexDirection: 'row',
         marginBottom: 30
-    },
-
-    button: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginHorizontal: 20,
-        elevation: 2,
-        shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowRadius: 2,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
     },
 
     empty: {
@@ -133,8 +158,17 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
-    back: {
-        backgroundColor: '#f5f5f5',
+    imgBackButton: {
+        marginLeft: 5,
+        marginTop: 5,
+        height: 40,
+        width: 100,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: "black",
+        borderRadius: 7,
+        backgroundColor: '#fffe71'
     },
 
     imgBack: {

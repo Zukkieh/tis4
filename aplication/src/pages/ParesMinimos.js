@@ -16,16 +16,16 @@ import background from '../assets/background.png';
 import back from '../assets/retroceder.png';
 import sound1IMG from '../assets/sound1IMG.png';
 import sound2IMG from '../assets/sound2IMG.png';
-import I0_1 from '../assets/I0_1.png';
-import I0_2 from '../assets/I0_2.png';
-import I25_1 from '../assets/I25_1.png';
-import I25_2 from '../assets/I25_2.png';
-import I50_1 from '../assets/I50_1.png';
-import I50_2 from '../assets/I50_2.png';
-import I75_1 from '../assets/I75_1.png';
-import I75_2 from '../assets/I75_2.png';
-import I100_1 from '../assets/I100_1.png';
-import I100_2 from '../assets/I100_2.png';
+import I0_1 from '../assets/ParesMinimosImgs/I0_1.png';
+import I0_2 from '../assets/ParesMinimosImgs/I0_2.png';
+import I25_1 from '../assets/ParesMinimosImgs/I25_1.png';
+import I25_2 from '../assets/ParesMinimosImgs/I25_2.png';
+import I50_1 from '../assets/ParesMinimosImgs/I50_1.png';
+import I50_2 from '../assets/ParesMinimosImgs/I50_2.png';
+import I75_1 from '../assets/ParesMinimosImgs/I75_1.png';
+import I75_2 from '../assets/ParesMinimosImgs/I75_2.png';
+import I100_1 from '../assets/ParesMinimosImgs/I100_1.png';
+import I100_2 from '../assets/ParesMinimosImgs/I100_2.png';
 import { black } from 'ansi-colors';
 
 export default function ParesMinimos({ navigation }) {
@@ -40,15 +40,15 @@ export default function ParesMinimos({ navigation }) {
     const [choseImageOne, setChoseImageOne] = useState('');
     const [choseImageTwo, setChoseImageTwo] = useState('');
     const [end, setEnd] = useState(false);
-
-    function goBack() {
-        navigation.navigate('Games', { id , perfil });
-    }
+    const [nivel, setNivel] = useState('0');
 
     useEffect(() => {
         async function getSound() {
             const progresso = await api.post('/getProgressoJogo', { id: id, jogo: "Pares Minimos"})
-            if(progresso.data.evolucao < 100 || progresso.data.code === 204){
+            const level = await api.post('/getLevel', { id: id})
+            console.log(level.data)
+            setNivel(level.data)
+            if(progresso.data.evolucao < 100 || progresso.data.code === 204 || level.data == 2){
                 if(progresso.data.code === 204){
                     setChoseSoundOne('s0_1');
                     setChoseSoundTwo('s0_2');
@@ -60,13 +60,36 @@ export default function ParesMinimos({ navigation }) {
                     setChoseImageOne(`I${progresso.data.evolucao}_1`);
                     setChoseImageTwo(`I${progresso.data.evolucao}_2`);
                 }
+                if(level.data == 2 && progresso.data.evolucao == 100){
+                    setChoseSoundOne('s0_1');
+                    setChoseSoundTwo('s0_2');
+                    setChoseImageOne('I0_1');
+                    setChoseImageTwo('I0_2');
+                }
             }else{
-                await setEnd(true)
+                if(progresso.data.nivel == '2'){
+                    await api.post('/clearGame', { id: id, jogo: "Pares Minimos"})
+                    setChoseSoundOne('s0_1');
+                    setChoseSoundTwo('s0_2');
+                    setChoseImageOne('I0_1');
+                    setChoseImageTwo('I0_2');
+                }else{
+                    setEnd(true)
+                }
             }
-            console.log(progresso.data.evolucao);
         }
         getSound();
     }, []);
+
+    async function goBackReset() {
+        if(nivel == '2'){
+            await api.post('/clearGame', { id: id, jogo: "Pares Minimos"})
+        }
+        navigation.navigate('Games', { id , perfil });
+    }
+    function goBack() {
+        navigation.navigate('Games', { id , perfil });
+    }
 
     
     async function nextWords() {
@@ -192,8 +215,8 @@ export default function ParesMinimos({ navigation }) {
             {end && 
                 <>
                     <ImageBackground source={background} style={styles.container}>
-                        <Text style={styles.nextPair}>PARABENS, VOCÊ COMPLETOU TODOS OS PARES</Text>
-                        <TouchableOpacity onPress={goBack} style={styles.ButtonNextPair}>
+                        <Text style={styles.nextPair}>PARABÉNS, VOCÊ COMPLETOU TODOS OS PARES</Text>
+                        <TouchableOpacity onPress={goBackReset} style={styles.ButtonNextPair}>
                             <Text style={styles.nextPair}>Voltar</Text>
                         </TouchableOpacity>
                     </ImageBackground>
