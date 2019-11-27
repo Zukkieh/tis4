@@ -36,6 +36,8 @@ export default function Login({ navigation }) {
         const response = await api.post('/testaPermissao', { id: id , fonema: "R" })
         if (response.data[0])
             navigation.navigate('Games', { id , perfil });
+        else
+            Alert.alert('', 'Você ainda não tem permissão para esse fonema!!')
     }
 
     function goBack() {

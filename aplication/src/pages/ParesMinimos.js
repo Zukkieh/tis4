@@ -41,6 +41,7 @@ export default function ParesMinimos({ navigation }) {
     const [choseImageTwo, setChoseImageTwo] = useState('');
     const [end, setEnd] = useState(false);
     const [nivel, setNivel] = useState('0');
+    const [instructions, setInstructions] = useState(true);
 
     useEffect(() => {
         async function getSound() {
@@ -157,59 +158,83 @@ export default function ParesMinimos({ navigation }) {
         <>
             {!end &&
                 <>
-                    <StatusBar hidden={true} />
-                    <TouchableOpacity onPress={goBack} style={styles.back}>
-                        <Image source={back} style={styles.imgBack} />
-                    </TouchableOpacity>
-                    <ImageBackground source={background} style={styles.container}>
-                        {(firstImage == true && firstSound == true) ?
-                            <>
-                            </>
-                            :
-                            <View style={styles.gameSection}>
-                                <View style={styles.sound}> 
-                                    <TouchableOpacity onPress={() => playSound1(choseSoundOne)}>
-                                        <Image source={sound1IMG} style={styles.soundIMG} />
-                                    </TouchableOpacity>
-                                </View> 
-                                <View style={styles.image}> 
-                                    <TouchableOpacity onPress={() => choseImage1("1")} style={styles.ImgGame}>
-                                    {choseImageOne == "I0_1" && <Image source={I0_1} />}
-                                    {choseImageOne == "I25_1" && <Image source={I25_1} />}
-                                    {choseImageOne == "I50_1" && <Image source={I50_1} />}
-                                    {choseImageOne == "I75_1" && <Image source={I75_1} />}
-                                    {choseImageOne == "I100_1" && <Image source={I100_1} />}
-                                    </TouchableOpacity>
-                                </View> 
-                            </View>
-                        }
-                        {(secondImage == true && secondSound == true) ?
-                            <>
-                            </>
-                            :
-                            <View style={styles.gameSection}>
-                                <View style={styles.sound}> 
-                                    <TouchableOpacity onPress={() => playSound2(choseSoundTwo)}>
-                                        <Image source={sound2IMG} style={styles.soundIMG} />
-                                    </TouchableOpacity>
-                                </View> 
-                                <View style={styles.image}> 
-                                    <TouchableOpacity onPress={() => choseImage2("2")} style={styles.ImgGame}>
-                                        {choseImageTwo == 'I0_2' && <Image source={I0_2} />}
-                                        {choseImageTwo == 'I25_2' && <Image source={I25_2} />}
-                                        {choseImageTwo == 'I50_2' && <Image source={I50_2} />}
-                                        {choseImageTwo == 'I75_2' && <Image source={I75_2} />}
-                                        {choseImageTwo == 'I100_2' && <Image source={I100_2} />}
-                                    </TouchableOpacity>
-                                </View> 
-                            </View>
-                        }
-                        {(secondSound && firstSound && firstImage && secondImage && !end) && 
-                            <TouchableOpacity onPress={nextWords} style={styles.ButtonNextPair}>
-                                <Text style={styles.nextPair}>Próximo par</Text>
+                    {instructions &&
+                        <>
+                            <StatusBar hidden={true} />
+                            <TouchableOpacity onPress={goBack} style={styles.back}>
+                                <Image source={back} style={styles.imgBack} />
                             </TouchableOpacity>
-                        }
-                    </ImageBackground>
+                            <ImageBackground source={background} style={styles.container}>
+                                <View style={styles.instructions}>
+                                    <Text style={styles.instructionsTitle}>INSTRUÇÕES</Text>
+                                    <Text style={styles.instructionsText}>Clique no megafone azul.</Text>
+                                    <Text style={styles.instructionsText}>Depois de escutar, clique na imagem da palavra escutada.</Text>
+                                    <Text style={styles.instructionsText}>Depois clique no megafone amarelo.</Text>
+                                    <Text style={styles.instructionsText}>Depois de escutar, clique na imagem da palavra escutada.</Text>
+                                    <TouchableOpacity onPress={()=>setInstructions(false)} style={styles.playButton}>
+                                        <Text style={styles.playButtonText}>JOGAR</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </ImageBackground>
+                        </>
+                    }
+                    {!instructions &&
+                        <>
+                            <StatusBar hidden={true} />
+                            <TouchableOpacity onPress={goBack} style={styles.back}>
+                                <Image source={back} style={styles.imgBack} />
+                            </TouchableOpacity>
+                            <ImageBackground source={background} style={styles.container}>
+                                {(firstImage == true && firstSound == true) ?
+                                    <>
+                                    </>
+                                    :
+                                    <View style={styles.gameSection}>
+                                        <View style={styles.sound}> 
+                                            <TouchableOpacity onPress={() => playSound1(choseSoundOne)}>
+                                                <Image source={sound1IMG} style={styles.soundIMG} />
+                                            </TouchableOpacity>
+                                        </View> 
+                                        <View style={styles.image}> 
+                                            <TouchableOpacity onPress={() => choseImage1("1")} style={styles.ImgGame}>
+                                            {choseImageOne == "I0_1" && <Image source={I0_1} />}
+                                            {choseImageOne == "I25_1" && <Image source={I25_1} />}
+                                            {choseImageOne == "I50_1" && <Image source={I50_1} />}
+                                            {choseImageOne == "I75_1" && <Image source={I75_1} />}
+                                            {choseImageOne == "I100_1" && <Image source={I100_1} />}
+                                            </TouchableOpacity>
+                                        </View> 
+                                    </View>
+                                }
+                                {(secondImage == true && secondSound == true) ?
+                                    <>
+                                    </>
+                                    :
+                                    <View style={styles.gameSection}>
+                                        <View style={styles.sound}> 
+                                            <TouchableOpacity onPress={() => playSound2(choseSoundTwo)}>
+                                                <Image source={sound2IMG} style={styles.soundIMG} />
+                                            </TouchableOpacity>
+                                        </View> 
+                                        <View style={styles.image}> 
+                                            <TouchableOpacity onPress={() => choseImage2("2")} style={styles.ImgGame}>
+                                                {choseImageTwo == 'I0_2' && <Image source={I0_2} />}
+                                                {choseImageTwo == 'I25_2' && <Image source={I25_2} />}
+                                                {choseImageTwo == 'I50_2' && <Image source={I50_2} />}
+                                                {choseImageTwo == 'I75_2' && <Image source={I75_2} />}
+                                                {choseImageTwo == 'I100_2' && <Image source={I100_2} />}
+                                            </TouchableOpacity>
+                                        </View> 
+                                    </View>
+                                }
+                                {(secondSound && firstSound && firstImage && secondImage && !end) && 
+                                    <TouchableOpacity onPress={nextWords} style={styles.ButtonNextPair}>
+                                        <Text style={styles.nextPair}>Próximo par</Text>
+                                    </TouchableOpacity>
+                                }
+                            </ImageBackground>
+                        </>
+                    }
                 </>
             }
             {end && 
@@ -228,16 +253,47 @@ export default function ParesMinimos({ navigation }) {
 
 const styles = StyleSheet.create({
 
-    test: {
-        marginTop: 100
-    },
-
     container: {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
+
+    instructions: {
+        marginLeft: 30,
+        flexDirection: "column",
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 500,
+        height: 300,
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 7
+    },
+
+    instructionsTitle: {
+        marginBottom: 30,
+        fontSize: 26,
+        fontWeight: 'bold',
+    },
+    instructionsText: {
+        fontSize: 19,
+    },
+
+    playButton: {
+        marginTop: 50,
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 7,
+        backgroundColor: 'green'
+    },
+
+    playButtonText: {
+        fontSize: 26
+    },
+
     gameSection: {
         flex: 1,
         flexDirection: 'row',

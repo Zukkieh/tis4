@@ -30,6 +30,7 @@ export default function DiscriminacaoAuditiva({ navigation }) {
     const [progresso, setProgresso] = useState('0');
     const [status, setStatus] = useState('0');
     const [nivel, setNivel] = useState('0');
+    const [instructions, setInstructions] = useState(true);
 
 
     useEffect(() => {
@@ -112,54 +113,77 @@ export default function DiscriminacaoAuditiva({ navigation }) {
         <>
             {!end &&
                 <>
-                    <StatusBar hidden={true} />
-                    <ImageBackground source={background2} style={styles.backgroundImg}>
-                        <TouchableOpacity onPress={goBack} style={styles.imgBackButton}>
-                            <Image source={back} style={styles.imgBack} />
-                        <Text>VOLTAR</Text>
-                        </TouchableOpacity>
-                        <View style={styles.container}>
-                            {status === '0' &&
-                                <>
-                                    <View>
-                                        <TouchableOpacity onPress={() => playSound(choseSound)} style={styles.soundSection}>
-                                            <Image source={sound} style={styles.soundImg} />
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={styles.choseSection}>
-                                        <TouchableOpacity onPress={() => {progresso === "25" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
-                                            <Image source={sino} style={styles.choseImage} />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => {progresso === "75" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
-                                            <Image source={cachorro} style={styles.choseImage} />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => {progresso === "0" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
-                                            <Image source={telefone} style={styles.choseImage} />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => {progresso === "50" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
-                                            <Image source={ambulancia} style={styles.choseImage} />
-                                        </TouchableOpacity>
-                                    </View>
-                                </>
-                            }
-                            {status === '1' &&
-                                <View style={styles.messageSection}>
-                                    <Text style={styles.textWrong}>OPS!!</Text>
-                                    <TouchableOpacity onPress={() => setStatus('0')} style={styles.messageButton}>
-                                        <Text style={styles.textWrong}>TENTAR NOVAMENTE</Text>
+                    {instructions &&
+                        <>
+                            <StatusBar hidden={true} />
+                            <ImageBackground source={background2} style={styles.backgroundImg}>
+                                <TouchableOpacity onPress={goBack} style={styles.imgBackButton}>
+                                    <Image source={back} style={styles.imgBack} />
+                                <Text>VOLTAR</Text>
+                                </TouchableOpacity>
+                                <View style={styles.instructions}>
+                                    <Text style={styles.instructionsTitle}>INSTRUÇÕES</Text>
+                                    <Text style={styles.instructionsText}>Clique na imagem do megafone para tocar o áudio.</Text>
+                                    <Text style={styles.instructionsText}>Depois de escutar, clique na imagem que faz esse som.</Text>
+                                    <TouchableOpacity onPress={()=>setInstructions(false)} style={styles.playButton}>
+                                        <Text style={styles.playButtonText}>JOGAR</Text>
                                     </TouchableOpacity>
                                 </View>
-                            }
-                            {status === '2' &&
-                             <View style={styles.messageSection}>
-                                <Text style={styles.textRight}>PARABÉNS!!</Text>
-                                <TouchableOpacity onPress={() => nextSound()} style={styles.messageButton}>
-                                    <Text style={styles.textRight}>PRÓXIMO SOM</Text>
+                            </ImageBackground>
+                        </>
+                    }
+                    {!instructions &&
+                        <>
+                            <StatusBar hidden={true} />
+                            <ImageBackground source={background2} style={styles.backgroundImg}>
+                                <TouchableOpacity onPress={goBack} style={styles.imgBackButton}>
+                                    <Image source={back} style={styles.imgBack} />
+                                <Text>VOLTAR</Text>
                                 </TouchableOpacity>
-                            </View>
-                            }
-                        </View>
-                    </ImageBackground>
+                                <View style={styles.container}>
+                                    {status === '0' &&
+                                        <>
+                                            <View>
+                                                <TouchableOpacity onPress={() => playSound(choseSound)} style={styles.soundSection}>
+                                                    <Image source={sound} style={styles.soundImg} />
+                                                </TouchableOpacity>
+                                            </View>
+                                            <View style={styles.choseSection}>
+                                                <TouchableOpacity onPress={() => {progresso === "25" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
+                                                    <Image source={sino} style={styles.choseImage} />
+                                                </TouchableOpacity>
+                                                <TouchableOpacity onPress={() => {progresso === "75" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
+                                                    <Image source={cachorro} style={styles.choseImage} />
+                                                </TouchableOpacity>
+                                                <TouchableOpacity onPress={() => {progresso === "0" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
+                                                    <Image source={telefone} style={styles.choseImage} />
+                                                </TouchableOpacity>
+                                                <TouchableOpacity onPress={() => {progresso === "50" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
+                                                    <Image source={ambulancia} style={styles.choseImage} />
+                                                </TouchableOpacity>
+                                            </View>
+                                        </>
+                                    }
+                                    {status === '1' &&
+                                        <View style={styles.messageSection}>
+                                            <Text style={styles.textWrong}>OPS!!</Text>
+                                            <TouchableOpacity onPress={() => setStatus('0')} style={styles.messageButton}>
+                                                <Text style={styles.textWrong}>TENTAR NOVAMENTE</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    }
+                                    {status === '2' &&
+                                    <View style={styles.messageSection}>
+                                        <Text style={styles.textRight}>PARABÉNS!!</Text>
+                                        <TouchableOpacity onPress={() => nextSound()} style={styles.messageButton}>
+                                            <Text style={styles.textRight}>PRÓXIMO SOM</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    }
+                                </View>
+                            </ImageBackground>
+                        </>
+                    }
                 </>
             }
             {end && 
@@ -185,7 +209,45 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
+    instructions: {
+        marginLeft: 150,
+        flexDirection: "column",
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 500,
+        height: 300,
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 7
+    },
+
+    instructionsTitle: {
+        marginBottom: 30,
+        fontSize: 26,
+        fontWeight: 'bold',
+    },
+    instructionsText: {
+        fontSize: 19,
+    },
+
+    playButton: {
+        marginTop: 50,
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 7,
+        backgroundColor: 'green'
+    },
+
+    playButtonText: {
+        fontSize: 26
+    },
+
     backgroundImg: {
+        flex: 1,
+    },
+
+    backgroundImg2: {
         flex: 1,
     },
 

@@ -75,7 +75,7 @@ export default function Login({ navigation }) {
             <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
-                placeholder="Digite seu usuário ou CRFA"
+                {...(fono ? {placeholder: 'Digite seu CRFA'} : {placeholder: 'Digite seu usuário'})}
                 placeholderTextColor="#999"
                 style={styles.input}
                 value={user}
