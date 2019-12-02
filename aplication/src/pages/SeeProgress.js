@@ -53,7 +53,7 @@ export default function listaPacientes({ navigation }) {
                 </TouchableOpacity>
                 <View style={styles.dataView}>
                     <Text style={styles.avaliacao}>
-                        ALVALIAÇÃO
+                        AVALIAÇÃO
                     </Text>
                     {pacientes.map((obj, index) => (
                         <View key={index} style={styles.dataCard}>
