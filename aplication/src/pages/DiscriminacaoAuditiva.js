@@ -16,23 +16,22 @@ import background2 from '../assets/background2.png';
 import background from '../assets/background.png';
 import back from '../assets/retroceder.png';
 import sound from '../assets/sound2IMG.png';
-import ambulancia from '../assets/DiscriminacaoAuditiva/ambulancia.png'
-import cachorro from '../assets/DiscriminacaoAuditiva/cachorro.png'
-import telefone from '../assets/DiscriminacaoAuditiva/telefone.png'
-import sino from '../assets/DiscriminacaoAuditiva/sino.png'
-import abelha from '../assets/DiscriminacaoAuditiva/Abelha.png'
-import bicicleta from '../assets/DiscriminacaoAuditiva/Bicicleta.png'
-import borboleta from '../assets/DiscriminacaoAuditiva/Borboleta.png'
-import chaleira from '../assets/DiscriminacaoAuditiva/Chaleira.png'
-import galo from '../assets/DiscriminacaoAuditiva/Cocorico.png'
-import garrafa from '../assets/DiscriminacaoAuditiva/Craaacc.png'
-import leao from '../assets/DiscriminacaoAuditiva/Grrrrr.png'
-import navio from '../assets/DiscriminacaoAuditiva/Navio.png'
-import porta from '../assets/DiscriminacaoAuditiva/Porta.png'
-import tambor from '../assets/DiscriminacaoAuditiva/Tambor.png'
-import urso from '../assets/DiscriminacaoAuditiva/Urso.png'
-import vaca from '../assets/DiscriminacaoAuditiva/Vaca.png'
-import moto from '../assets/DiscriminacaoAuditiva/Vruuuuum.png'
+import da10 from '../assets/DiscriminacaoAuditiva/da10.png'
+import da20 from '../assets/DiscriminacaoAuditiva/da20.png'
+import da30 from '../assets/DiscriminacaoAuditiva/da30.png'
+import da40 from '../assets/DiscriminacaoAuditiva/da40.png'
+import da125 from '../assets/DiscriminacaoAuditiva/da125.png'
+import da225 from '../assets/DiscriminacaoAuditiva/da225.png'
+import da325 from '../assets/DiscriminacaoAuditiva/da325.png'
+import da425 from '../assets/DiscriminacaoAuditiva/da425.png'
+import da150 from '../assets/DiscriminacaoAuditiva/da150.png'
+import da250 from '../assets/DiscriminacaoAuditiva/da250.png'
+import da350 from '../assets/DiscriminacaoAuditiva/da350.png'
+import da450 from '../assets/DiscriminacaoAuditiva/da450.png'
+import da175 from '../assets/DiscriminacaoAuditiva/175.png'
+import da275 from '../assets/DiscriminacaoAuditiva/275.png'
+import da375 from '../assets/DiscriminacaoAuditiva/375.png'
+import da475 from '../assets/DiscriminacaoAuditiva/475.png'
 
 
 export default function DiscriminacaoAuditiva({ navigation }) {
@@ -45,10 +44,10 @@ export default function DiscriminacaoAuditiva({ navigation }) {
     const [status, setStatus] = useState('0');
     const [nivel, setNivel] = useState('0');
     const [instructions, setInstructions] = useState(true);
-    const [choseImageOne, setChoseImageTwo] = useState('');
+    const [choseImageOne, setChoseImageOne] = useState('');
     const [choseImageTwo, setChoseImageTwo] = useState('');
-    const [choseImageThree, setChoseImageTwo] = useState('');
-    const [choseImageFour, setChoseImageTwo] = useState('');
+    const [choseImageThree, setChoseImageThree] = useState('');
+    const [choseImageFour, setChoseImageFour] = useState('');
 
 
 
