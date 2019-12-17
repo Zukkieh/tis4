@@ -28,10 +28,10 @@ import da150 from '../assets/DiscriminacaoAuditiva/da150.png'
 import da250 from '../assets/DiscriminacaoAuditiva/da250.png'
 import da350 from '../assets/DiscriminacaoAuditiva/da350.png'
 import da450 from '../assets/DiscriminacaoAuditiva/da450.png'
-import da175 from '../assets/DiscriminacaoAuditiva/175.png'
-import da275 from '../assets/DiscriminacaoAuditiva/275.png'
-import da375 from '../assets/DiscriminacaoAuditiva/375.png'
-import da475 from '../assets/DiscriminacaoAuditiva/475.png'
+import da175 from '../assets/DiscriminacaoAuditiva/da175.png'
+import da275 from '../assets/DiscriminacaoAuditiva/da275.png'
+import da375 from '../assets/DiscriminacaoAuditiva/da375.png'
+import da475 from '../assets/DiscriminacaoAuditiva/da475.png'
 
 
 export default function DiscriminacaoAuditiva({ navigation }) {
@@ -59,14 +59,26 @@ export default function DiscriminacaoAuditiva({ navigation }) {
             if (progresso.data.evolucao < 100 || progresso.data.code === 204) {
                 if (progresso.data.code === 204) {
                     setChoseSound('sd_0');
+                    setChoseImageOne(`da10`);
+                    setChoseImageTwo(`da20`);
+                    setChoseImageThree(`da30`);
+                    setChoseImageFour(`da40`)
                 } else {
                     setChoseSound(`sd_${progresso.data.evolucao}`);
                     setProgresso(`${progresso.data.evolucao}`)
+                    setChoseImageOne(`da1${progresso.data.evolucao}`);
+                    setChoseImageTwo(`da2${progresso.data.evolucao}`);
+                    setChoseImageThree(`da3${progresso.data.evolucao}`);
+                    setChoseImageFour(`da4${progresso.data.evolucao}`)
                 }
             } else {
                 if (progresso.data.nivel == '2') {
                     await api.post('/clearGame', { id: id, jogo: "Discriminação Auditiva" })
                     setChoseSound('sd_0');
+                    setChoseImageOne(`da10`);
+                    setChoseImageTwo(`da20`);
+                    setChoseImageThree(`da30`);
+                    setChoseImageFour(`da40`)
                 } else {
                     setEnd(true)
                 }
@@ -109,10 +121,10 @@ export default function DiscriminacaoAuditiva({ navigation }) {
         if (progresso.data.code === 204) {
             setChoseSound(`sd_25`);
             setProgresso("25");
-            setChoseImageOne(`da1_25`);
-            setChoseImageTwo(`da2_25`);
-            setChoseImageThree(`da3_25`);
-            setChoseImageFour(`da4_25`)
+            setChoseImageOne(`da10`);
+            setChoseImageTwo(`da20`);
+            setChoseImageThree(`da30`);
+            setChoseImageFour(`da40`)
         } else {
             if (progresso.data.evolucao >= 25) {
                 setChoseSound(`sd_${progresso.data.evolucao + 25}`);
