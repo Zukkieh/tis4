@@ -20,6 +20,20 @@ import ambulancia from '../assets/DiscriminacaoAuditiva/ambulancia.png'
 import cachorro from '../assets/DiscriminacaoAuditiva/cachorro.png'
 import telefone from '../assets/DiscriminacaoAuditiva/telefone.png'
 import sino from '../assets/DiscriminacaoAuditiva/sino.png'
+import abelha from '../assets/DiscriminacaoAuditiva/Abelha.png'
+import bicicleta from '../assets/DiscriminacaoAuditiva/Bicicleta.png'
+import borboleta from '../assets/DiscriminacaoAuditiva/Borboleta.png'
+import chaleira from '../assets/DiscriminacaoAuditiva/Chaleira.png'
+import galo from '../assets/DiscriminacaoAuditiva/Cocorico.png'
+import garrafa from '../assets/DiscriminacaoAuditiva/Craaacc.png'
+import leao from '../assets/DiscriminacaoAuditiva/Grrrrr.png'
+import navio from '../assets/DiscriminacaoAuditiva/Navio.png'
+import porta from '../assets/DiscriminacaoAuditiva/Porta.png'
+import tambor from '../assets/DiscriminacaoAuditiva/Tambor.png'
+import urso from '../assets/DiscriminacaoAuditiva/Urso.png'
+import vaca from '../assets/DiscriminacaoAuditiva/Vaca.png'
+import moto from '../assets/DiscriminacaoAuditiva/Vruuuuum.png'
+
 
 export default function DiscriminacaoAuditiva({ navigation }) {
     const id = navigation.getParam('id');
@@ -31,41 +45,46 @@ export default function DiscriminacaoAuditiva({ navigation }) {
     const [status, setStatus] = useState('0');
     const [nivel, setNivel] = useState('0');
     const [instructions, setInstructions] = useState(true);
+    const [choseImageOne, setChoseImageTwo] = useState('');
+    const [choseImageTwo, setChoseImageTwo] = useState('');
+    const [choseImageThree, setChoseImageTwo] = useState('');
+    const [choseImageFour, setChoseImageTwo] = useState('');
+
 
 
     useEffect(() => {
         async function getSound() {
-            const progresso = await api.post('/getProgressoJogo', { id: id, jogo: "Discriminação Auditiva"})
-            const level = await api.post('/getLevel', { id: id})
+            const progresso = await api.post('/getProgressoJogo', { id: id, jogo: "Discriminação Auditiva" })
+            const level = await api.post('/getLevel', { id: id })
             setNivel(level.data)
-            if(progresso.data.evolucao < 100 || progresso.data.code === 204){
-                if(progresso.data.code === 204){
+            if (progresso.data.evolucao < 100 || progresso.data.code === 204) {
+                if (progresso.data.code === 204) {
                     setChoseSound('sd_0');
-                }else{
+                } else {
                     setChoseSound(`sd_${progresso.data.evolucao}`);
                     setProgresso(`${progresso.data.evolucao}`)
                 }
-            }else{
-                if(progresso.data.nivel == '2'){
-                    await api.post('/clearGame', { id: id, jogo: "Discriminação Auditiva"})
+            } else {
+                if (progresso.data.nivel == '2') {
+                    await api.post('/clearGame', { id: id, jogo: "Discriminação Auditiva" })
                     setChoseSound('sd_0');
-                }else{
+                } else {
                     setEnd(true)
                 }
             }
-            
+
         }
         getSound();
     }, []);
 
     async function goBackReset() {
-        if(nivel == '2'){
-            await api.post('/clearGame', { id: id, jogo: "Pares Minimos"})
+        if (nivel == '2') {
+            await api.post('/clearGame', { id: id, jogo: "Pares Minimos" })
         }
-        navigation.navigate('Games', { id , perfil });
+        navigation.navigate('Games', { id, perfil });
     }
     function goBack() {
-        navigation.navigate('Games', { id , perfil });
+        navigation.navigate('Games', { id, perfil });
     }
 
     function playSound(test) {
@@ -86,26 +105,34 @@ export default function DiscriminacaoAuditiva({ navigation }) {
 
     async function nextSound() {
         let response = "";
-        const progresso = await api.post('/getProgressoJogo', { id: id, jogo: "Discriminação Auditiva"})
+        const progresso = await api.post('/getProgressoJogo', { id: id, jogo: "Discriminação Auditiva" })
         setStatus('0')
-        if(progresso.data.code === 204){
+        if (progresso.data.code === 204) {
             setChoseSound(`sd_25`);
-            setProgresso("25")
-        }else{
-            if(progresso.data.evolucao>= 25){
-                setChoseSound(`sd_${progresso.data.evolucao+25}`);
-                setProgresso(`${progresso.data.evolucao+25}`)
+            setProgresso("25");
+            setChoseImageOne(`da1_25`);
+            setChoseImageTwo(`da2_25`);
+            setChoseImageThree(`da3_25`);
+            setChoseImageFour(`da4_25`)
+        } else {
+            if (progresso.data.evolucao >= 25) {
+                setChoseSound(`sd_${progresso.data.evolucao + 25}`);
+                setProgresso(`${progresso.data.evolucao + 25}`);
+                setChoseImageOne(`da1${progresso.data.evolucao + 25}`);
+                setChoseImageTwo(`da2${progresso.data.evolucao + 25}`);
+                setChoseImageThree(`da3${progresso.data.evolucao + 25}`);
+                setChoseImageFour(`da4${progresso.data.evolucao + 25}`)
             }
         }
 
-        if(progresso.data.evolucao < 100 || progresso.data.code === 204){
-            if(progresso.data.code === 204)
+        if (progresso.data.evolucao < 100 || progresso.data.code === 204) {
+            if (progresso.data.code === 204)
                 response = await api.post('/registerProgresso', { idPaciente: id, jogo: "Discriminação Auditiva", porcentagem: 25 })
             else
                 response = await api.post('/updateProgresso', { idPaciente: id, jogo: "Discriminação Auditiva", progresso: (progresso.data.evolucao + 25) })
-        }else
+        } else
             setEnd(true)
-        if(progresso.data.evolucao === 75)
+        if (progresso.data.evolucao === 75)
             setEnd(true)
     }
 
@@ -119,13 +146,13 @@ export default function DiscriminacaoAuditiva({ navigation }) {
                             <ImageBackground source={background2} style={styles.backgroundImg}>
                                 <TouchableOpacity onPress={goBack} style={styles.imgBackButton}>
                                     <Image source={back} style={styles.imgBack} />
-                                <Text>VOLTAR</Text>
+                                    <Text>VOLTAR</Text>
                                 </TouchableOpacity>
                                 <View style={styles.instructions}>
                                     <Text style={styles.instructionsTitle}>INSTRUÇÕES</Text>
                                     <Text style={styles.instructionsText}>Clique na imagem do megafone para tocar o áudio.</Text>
                                     <Text style={styles.instructionsText}>Depois de escutar, clique na imagem que faz esse som.</Text>
-                                    <TouchableOpacity onPress={()=>setInstructions(false)} style={styles.playButton}>
+                                    <TouchableOpacity onPress={() => setInstructions(false)} style={styles.playButton}>
                                         <Text style={styles.playButtonText}>JOGAR</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -138,7 +165,7 @@ export default function DiscriminacaoAuditiva({ navigation }) {
                             <ImageBackground source={background2} style={styles.backgroundImg}>
                                 <TouchableOpacity onPress={goBack} style={styles.imgBackButton}>
                                     <Image source={back} style={styles.imgBack} />
-                                <Text>VOLTAR</Text>
+                                    <Text>VOLTAR</Text>
                                 </TouchableOpacity>
                                 <View style={styles.container}>
                                     {status === '0' &&
@@ -149,17 +176,29 @@ export default function DiscriminacaoAuditiva({ navigation }) {
                                                 </TouchableOpacity>
                                             </View>
                                             <View style={styles.choseSection}>
-                                                <TouchableOpacity onPress={() => {progresso === "25" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
-                                                    <Image source={sino} style={styles.choseImage} />
+                                                <TouchableOpacity onPress={() => { progresso === "75" ? handleClickImage('2') : handleClickImage('1') }} style={styles.choseSectionButton}>
+                                                    {choseImageOne == 'da10' && <Image source={da10} style={styles.choseImage} />}
+                                                    {choseImageOne == 'da125' && <Image source={da125} style={styles.choseImage} />}
+                                                    {choseImageOne == 'da150' && <Image source={da150} style={styles.choseImage} />}
+                                                    {choseImageOne == 'da175' && <Image source={da175} style={styles.choseImage} />}
                                                 </TouchableOpacity>
-                                                <TouchableOpacity onPress={() => {progresso === "75" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
-                                                    <Image source={cachorro} style={styles.choseImage} />
+                                                <TouchableOpacity onPress={() => { progresso === "25" ? handleClickImage('2') : handleClickImage('1') }} style={styles.choseSectionButton}>
+                                                    {choseImageTwo == 'da20' && <Image source={da20} style={styles.choseImage} />}
+                                                    {choseImageTwo == 'da225' && <Image source={da225} style={styles.choseImage} />}
+                                                    {choseImageTwo == 'da250' && <Image source={da250} style={styles.choseImage} />}
+                                                    {choseImageTwo == 'da275' && <Image source={da275} style={styles.choseImage} />}
                                                 </TouchableOpacity>
-                                                <TouchableOpacity onPress={() => {progresso === "0" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
-                                                    <Image source={telefone} style={styles.choseImage} />
+                                                <TouchableOpacity onPress={() => { progresso === "0" ? handleClickImage('2') : handleClickImage('1') }} style={styles.choseSectionButton}>
+                                                    {choseImageThree == 'da30' && <Image source={da30} style={styles.choseImage} />}
+                                                    {choseImageThree == 'da325' && <Image source={da325} style={styles.choseImage} />}
+                                                    {choseImageThree == 'da350' && <Image source={da350} style={styles.choseImage} />}
+                                                    {choseImageThree == 'da375' && <Image source={da375} style={styles.choseImage} />}   
                                                 </TouchableOpacity>
-                                                <TouchableOpacity onPress={() => {progresso === "50" ? handleClickImage('2') : handleClickImage('1')}}style={styles.choseSectionButton}>
-                                                    <Image source={ambulancia} style={styles.choseImage} />
+                                                <TouchableOpacity onPress={() => { progresso === "50" ? handleClickImage('2') : handleClickImage('1') }} style={styles.choseSectionButton}>
+                                                    {choseImageFour == 'da40' && <Image source={da40} style={styles.choseImage} />}
+                                                    {choseImageFour == 'da425' && <Image source={da425} style={styles.choseImage} />}
+                                                    {choseImageFour == 'da450' && <Image source={da450} style={styles.choseImage} />}
+                                                    {choseImageFour == 'da475' && <Image source={da475} style={styles.choseImage} />}  
                                                 </TouchableOpacity>
                                             </View>
                                         </>
@@ -173,12 +212,12 @@ export default function DiscriminacaoAuditiva({ navigation }) {
                                         </View>
                                     }
                                     {status === '2' &&
-                                    <View style={styles.messageSection}>
-                                        <Text style={styles.textRight}>PARABÉNS!!</Text>
-                                        <TouchableOpacity onPress={() => nextSound()} style={styles.messageButton}>
-                                            <Text style={styles.textRight}>PRÓXIMO SOM</Text>
-                                        </TouchableOpacity>
-                                    </View>
+                                        <View style={styles.messageSection}>
+                                            <Text style={styles.textRight}>PARABÉNS!!</Text>
+                                            <TouchableOpacity onPress={() => nextSound()} style={styles.messageButton}>
+                                                <Text style={styles.textRight}>PRÓXIMO SOM</Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     }
                                 </View>
                             </ImageBackground>
@@ -186,7 +225,7 @@ export default function DiscriminacaoAuditiva({ navigation }) {
                     }
                 </>
             }
-            {end && 
+            {end &&
                 <>
                     <ImageBackground source={background} style={styles.container}>
                         <Text style={styles.end}>PARABÉNS, VOCÊ COMPLETOU TODOS OS SONS</Text>
@@ -296,7 +335,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
-    
+
     soundIMG: {
         height: 40,
         width: 40,
